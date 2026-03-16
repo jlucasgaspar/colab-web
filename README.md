@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Colab Web
 
-## Getting Started
+Frontend da plataforma **Colab** — sistema de relatos urbanos para cidadãos e gestores públicos.
 
-First, run the development server:
+Construído com **Next.js 16**, **React 19**, **Tailwind CSS 4** e **shadcn/ui**.
+
+## Pré-requisitos
+
+- [Docker](https://docs.docker.com/get-docker/) e [Docker Compose](https://docs.docker.com/compose/install/)
+- A API backend rodando (por padrão em `http://localhost:3001`)
+
+## Início rápido
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# 1. Clone o repositório
+git clone <url-do-repositorio>
+cd colab-web
+
+# 2. Copie o arquivo de variáveis de ambiente
+cp .env.example .env
+
+# 3. (Opcional) Edite o .env se a API estiver em outro endereço
+# NEXT_PUBLIC_API_URL=http://localhost:3001
+
+# 4. Suba o container
+docker compose up --build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+A aplicação estará disponível em **http://localhost:3000**.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Variáveis de ambiente
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variável | Descrição | Padrão |
+|---|---|---|
+| `NEXT_PUBLIC_API_URL` | URL da API backend | `http://localhost:3001` |
 
-## Learn More
+## Desenvolvimento local (sem Docker)
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# Instale as dependências
+npm install
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Copie o .env
+cp .env.example .env
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Rode o servidor de desenvolvimento
+npm run dev
+```
 
-## Deploy on Vercel
+## Scripts disponíveis
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Comando | Descrição |
+|---|---|
+| `npm run dev` | Servidor de desenvolvimento |
+| `npm run build` | Build de produção |
+| `npm start` | Inicia o servidor de produção |
+| `npm run lint` | Executa o ESLint |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Estrutura do projeto
+
+```
+src/
+├── app/                # Rotas (App Router)
+│   ├── (auth)/         # Login e registro
+│   └── (dashboard)/    # Área logada (relatos, admin)
+├── components/
+│   ├── ui/             # Componentes shadcn/ui
+│   ├── layout/         # Navbar
+│   └── reports/        # Componentes de relatos
+├── hooks/              # Hooks customizados
+└── lib/                # API client, auth, validações, utilitários
+```

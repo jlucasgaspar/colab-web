@@ -25,6 +25,7 @@ export default function NewReportPage() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
+  const [listeningField, setListeningField] = useState<string | null>(null);
 
   const { loading: geoLoading, getLocation } = useGeolocation();
 
@@ -104,15 +105,26 @@ export default function NewReportPage() {
             <div className="space-y-2">
               <Label htmlFor="title">Título</Label>
               <div className="flex gap-2">
-                <Input
-                  id="title"
-                  placeholder="Ex: Buraco na calçada"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  required
-                />
+                <div className="relative flex-1">
+                  <Input
+                    id="title"
+                    placeholder={listeningField === 'title' ? 'Ouvindo...' : 'Ex: Buraco na calçada'}
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    required
+                    className={listeningField === 'title' ? 'border-red-400 ring-2 ring-red-200 text-muted-foreground' : ''}
+                  />
+                  {listeningField === 'title' && (
+                    <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-xs text-red-500 animate-pulse">
+                      Ouvindo...
+                    </span>
+                  )}
+                </div>
                 <VoiceInputButton
-                  onResult={(text) => setTitle((prev) => prev ? `${prev} ${text}` : text)}
+                  onStart={() => setTitle('')}
+                  onInterim={(text) => setTitle(text)}
+                  onResult={(text) => setTitle(text)}
+                  onListeningChange={(listening) => setListeningField(listening ? 'title' : null)}
                 />
               </div>
             </div>
@@ -120,18 +132,27 @@ export default function NewReportPage() {
             <div className="space-y-2">
               <Label htmlFor="description">Descrição</Label>
               <div className="flex gap-2">
-                <Textarea
-                  id="description"
-                  placeholder="Descreva o problema com detalhes..."
-                  rows={4}
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  required
-                />
+                <div className="relative flex-1">
+                  <Textarea
+                    id="description"
+                    placeholder={listeningField === 'description' ? 'Ouvindo...' : 'Descreva o problema com detalhes...'}
+                    rows={4}
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    required
+                    className={listeningField === 'description' ? 'border-red-400 ring-2 ring-red-200 text-muted-foreground' : ''}
+                  />
+                  {listeningField === 'description' && (
+                    <span className="pointer-events-none absolute right-3 top-3 text-xs text-red-500 animate-pulse">
+                      Ouvindo...
+                    </span>
+                  )}
+                </div>
                 <VoiceInputButton
-                  onResult={(text) =>
-                    setDescription((prev) => prev ? `${prev} ${text}` : text)
-                  }
+                  onStart={() => setDescription('')}
+                  onInterim={(text) => setDescription(text)}
+                  onResult={(text) => setDescription(text)}
+                  onListeningChange={(listening) => setListeningField(listening ? 'description' : null)}
                 />
               </div>
             </div>
@@ -139,17 +160,26 @@ export default function NewReportPage() {
             <div className="space-y-2">
               <Label htmlFor="location">Localização</Label>
               <div className="flex gap-2">
-                <Input
-                  id="location"
-                  placeholder="Ex: Rua das Flores, 123 - Centro"
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                  required
-                />
+                <div className="relative flex-1">
+                  <Input
+                    id="location"
+                    placeholder={listeningField === 'location' ? 'Ouvindo...' : 'Ex: Rua das Flores, 123 - Centro'}
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                    required
+                    className={listeningField === 'location' ? 'border-red-400 ring-2 ring-red-200 text-muted-foreground' : ''}
+                  />
+                  {listeningField === 'location' && (
+                    <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-xs text-red-500 animate-pulse">
+                      Ouvindo...
+                    </span>
+                  )}
+                </div>
                 <VoiceInputButton
-                  onResult={(text) =>
-                    setLocation((prev) => prev ? `${prev} ${text}` : text)
-                  }
+                  onStart={() => setLocation('')}
+                  onInterim={(text) => setLocation(text)}
+                  onResult={(text) => setLocation(text)}
+                  onListeningChange={(listening) => setListeningField(listening ? 'location' : null)}
                 />
                 <Button
                   type="button"

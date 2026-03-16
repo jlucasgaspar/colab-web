@@ -37,7 +37,13 @@ export function useGeolocation() {
         `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&addressdetails=1`,
       );
       const data = await res.json();
-      const address = data.display_name || `${latitude}, ${longitude}`;
+
+      const parts: string[] = [];
+      if (data.address?.road) parts.push(data.address.road);
+      if (data.address?.suburb || data.address?.neighbourhood) {
+        parts.push(data.address.suburb || data.address.neighbourhood);
+      }
+      const address = parts.length > 0 ? parts.join(', ') : `${latitude}, ${longitude}`;
 
       setState({ loading: false, error: null, address });
       return address;

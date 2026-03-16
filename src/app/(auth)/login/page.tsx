@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
@@ -12,7 +13,6 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
 } from '@/components/ui/card';
 import { useAuth } from '@/lib/auth';
 import { loginSchema } from '@/lib/validations';
@@ -27,7 +27,7 @@ export default function LoginPage() {
     const formData = new FormData(e.currentTarget);
     const raw = {
       email: formData.get('email') as string,
-      password: formData.get('password') as string,
+      password: formData.get('pwd') as string,
     };
 
     const result = loginSchema.safeParse(raw);
@@ -50,10 +50,8 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
       <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold">
-            Colab<span className="text-primary/60">.ia</span>
-          </CardTitle>
+        <CardHeader className="flex flex-col items-center gap-2">
+          <Image src="/colab-logo.svg" alt="Colab" width={120} height={33} priority />
           <CardDescription>Entre na sua conta para continuar</CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
@@ -71,8 +69,7 @@ export default function LoginPage() {
             <div className="space-y-2">
               <Label htmlFor="password">Senha</Label>
               <Input
-                id="password"
-                name="password"
+                name="pwd"
                 type="password"
                 placeholder="••••••"
                 required

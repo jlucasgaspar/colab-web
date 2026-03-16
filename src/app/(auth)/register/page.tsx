@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
@@ -12,7 +13,6 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
 } from '@/components/ui/card';
 import { useAuth } from '@/lib/auth';
 import { registerSchema } from '@/lib/validations';
@@ -28,7 +28,7 @@ export default function RegisterPage() {
     const raw = {
       name: formData.get('name') as string,
       email: formData.get('email') as string,
-      password: formData.get('password') as string,
+      password: formData.get('pwd') as string,
     };
 
     const result = registerSchema.safeParse(raw);
@@ -51,10 +51,8 @@ export default function RegisterPage() {
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
       <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold">
-            Colab<span className="text-primary/60">.ia</span>
-          </CardTitle>
+        <CardHeader className="flex flex-col items-center gap-2">
+          <Image src="/colab-logo.svg" alt="Colab" width={120} height={33} priority />
           <CardDescription>Crie sua conta para relatar problemas</CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
@@ -62,7 +60,6 @@ export default function RegisterPage() {
             <div className="space-y-2">
               <Label htmlFor="name">Nome</Label>
               <Input
-                id="name"
                 name="name"
                 placeholder="Seu nome completo"
                 required
@@ -71,7 +68,6 @@ export default function RegisterPage() {
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
-                id="email"
                 name="email"
                 type="email"
                 placeholder="seu@email.com"
@@ -81,8 +77,7 @@ export default function RegisterPage() {
             <div className="space-y-2">
               <Label htmlFor="password">Senha</Label>
               <Input
-                id="password"
-                name="password"
+                name="pwd"
                 type="password"
                 placeholder="Mínimo 6 caracteres"
                 required

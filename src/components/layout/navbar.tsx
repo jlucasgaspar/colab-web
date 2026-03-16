@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -34,8 +35,8 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4">
-        <Link href="/reports" className="text-lg font-bold tracking-tight">
-          Colab<span className="text-primary/60">.ia</span>
+        <Link href="/reports">
+          <Image src="/colab-logo.svg" alt="Colab" width={100} height={28} priority />
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">

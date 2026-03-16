@@ -13,7 +13,7 @@ Construído com **Next.js 16**, **React 19**, **Tailwind CSS 4** e **shadcn/ui**
 
 ```bash
 # 1. Clone o repositório
-git clone <url-do-repositorio>
+git clone https://github.com/jlucasgaspar/colab-web.git
 cd colab-web
 
 # 2. Copie o arquivo de variáveis de ambiente

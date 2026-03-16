@@ -75,44 +75,46 @@ export default function MyReportsPage() {
       ) : (
         <div className="grid gap-4 md:grid-cols-2">
           {reports.map((report) => (
-            <Card key={report.id}>
-              <CardHeader className="pb-3">
-                <div className="flex items-start justify-between gap-2">
-                  <CardTitle className="text-base leading-tight">
-                    {report.title}
-                  </CardTitle>
-                  <StatusBadge status={report.status} />
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                {report.category && (
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-medium text-muted-foreground">
-                      Categoria:
-                    </span>
-                    <span className="text-sm">{report.category}</span>
-                    {report.priority && (
-                      <PriorityBadge priority={report.priority} />
-                    )}
+            <Link key={report.id} href={`/reports/${report.id}`}>
+              <Card className="cursor-pointer transition-shadow hover:shadow-md">
+                <CardHeader className="pb-3">
+                  <div className="flex items-start justify-between gap-2">
+                    <CardTitle className="text-base leading-tight">
+                      {report.title}
+                    </CardTitle>
+                    <StatusBadge status={report.status} />
                   </div>
-                )}
-                {report.technicalSummary && (
-                  <p className="text-sm text-muted-foreground">
-                    {report.technicalSummary}
-                  </p>
-                )}
-                <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                  <span className="flex items-center gap-1">
-                    <MapPin className="h-3 w-3" />
-                    {report.location}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Calendar className="h-3 w-3" />
-                    {new Date(report.createdAt).toLocaleDateString('pt-BR')}
-                  </span>
-                </div>
-              </CardContent>
-            </Card>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  {report.category && (
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-medium text-muted-foreground">
+                        Categoria:
+                      </span>
+                      <span className="text-sm">{report.category}</span>
+                      {report.priority && (
+                        <PriorityBadge priority={report.priority} />
+                      )}
+                    </div>
+                  )}
+                  {report.technicalSummary && (
+                    <p className="text-sm text-muted-foreground">
+                      {report.technicalSummary}
+                    </p>
+                  )}
+                  <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                    <span className="flex items-center gap-1">
+                      <MapPin className="h-3 w-3" />
+                      {report.location}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Calendar className="h-3 w-3" />
+                      {new Date(report.createdAt).toLocaleDateString('pt-BR')}
+                    </span>
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
       )}

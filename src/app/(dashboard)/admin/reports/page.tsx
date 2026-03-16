@@ -114,7 +114,11 @@ export default function AdminReportsPage() {
                 </TableHeader>
                 <TableBody>
                   {reports.map((report) => (
-                    <TableRow key={report.id}>
+                    <TableRow
+                      key={report.id}
+                      className="cursor-pointer transition-colors hover:bg-muted/50"
+                      onClick={() => router.push(`/admin/reports/${report.id}`)}
+                    >
                       <TableCell className="max-w-[200px] font-medium">
                         <div className="truncate">{report.title}</div>
                         {report.technicalSummary && (
@@ -139,7 +143,7 @@ export default function AdminReportsPage() {
                       <TableCell>
                         <PriorityBadge priority={report.priority} />
                       </TableCell>
-                      <TableCell>
+                      <TableCell onClick={(e) => e.stopPropagation()}>
                         <Select
                           value={report.status}
                           onValueChange={(val) =>

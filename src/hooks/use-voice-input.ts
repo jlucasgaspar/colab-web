@@ -33,7 +33,7 @@ export function useVoiceInput({ onStart, onInterim, onResult }: UseVoiceInputOpt
     const recognition = new SpeechRecognition();
     recognition.lang = 'pt-BR';
     recognition.interimResults = true;
-    recognition.continuous = false;
+    recognition.continuous = true;
 
     recognition.onresult = (event) => {
       let interim = '';
